@@ -5,6 +5,8 @@ const TextField = ({ label, required, ...props }) => {
   const dataInputParams =
     props.accepter === DatePicker
       ? {
+          ranges: [],
+          isoWeek: true,
           placeholder: 'ДД.ММ.ГГГГ',
           locale: {
             sunday: 'Вс',

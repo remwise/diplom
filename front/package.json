@@ -25,6 +25,7 @@
       "react-app/jest"
     ]
   },
+  "proxy": "http://diplom.local",
   "browserslist": {
     "production": [
       ">0.2%",

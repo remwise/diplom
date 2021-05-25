@@ -5,7 +5,7 @@ import RegisterPanel from '../../components/register-panel';
 
 const RegisterPage = () => {
   return (
-    <div className="show-fake-browser register-page">
+    <div className="register-page">
       <Container>
         <Content>
           <FlexboxGrid justify="center">

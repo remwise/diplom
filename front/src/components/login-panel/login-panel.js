@@ -6,9 +6,9 @@ import { ButtonToolbar, Panel, Form, FormGroup, Button, Schema } from 'rsuite';
 
 import TextField from '../../components/text-field';
 
-// import { getStore } from '../../stores/auth';
+import { getStore } from '../../stores/user';
 
-// const store = getStore();
+const store = getStore();
 
 const { StringType } = Schema.Types;
 
@@ -31,7 +31,7 @@ const LoginPanel = observer(() => {
       console.error('Form Error');
       return;
     }
-    console.log(formValue);
+    store.login(formValue);
   };
 
   return (

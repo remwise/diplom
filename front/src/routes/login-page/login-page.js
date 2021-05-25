@@ -5,7 +5,7 @@ import LoginPanel from '../../components/login-panel';
 
 const LoginPage = () => {
   return (
-    <div className="show-fake-browser login-page">
+    <div className="login-page">
       <Container>
         <Content>
           <FlexboxGrid justify="center">

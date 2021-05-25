@@ -8,9 +8,10 @@ const SearchPanel = () => {
   // const [searchText, setSearchText] = useState('');
   const [formValue, setFormValue] = useState({
     registerStartDate: null,
-    registerEndDate: '',
-    eventStartDate: '',
-    eventEndDate: '',
+    registerEndDate: null,
+    eventStartDate: null,
+    eventEndDate: null,
+    universityName: '',
     sort: 'default',
   });
 

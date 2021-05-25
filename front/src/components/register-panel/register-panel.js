@@ -1,27 +1,30 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Panel, Form, Button, Schema, InputPicker, DatePicker } from 'rsuite';
 
 import { passwordValidate, phoneValidate } from '../../utils/validators';
 import TextField from '../text-field';
 
-// import { getStore } from '../../stores/auth';
+import { getStore as getUserStore } from '../../stores/user';
+import { getStore as getInfoListStore } from '../../stores/info-list';
 
-// const store = getStore();
+const userStore = getUserStore();
+const infoListStore = getInfoListStore();
 
-const { StringType, DateType } = Schema.Types;
+const { StringType, DateType, NumberType } = Schema.Types;
 
 const model = Schema.Model({
   email: StringType().isRequired('Введите email').isEmail('Введите корректный email'),
   name: StringType().isRequired('Введите имя'),
   surname: StringType().isRequired('Введите фамилию'),
   patronymic: StringType(),
+  position_id: NumberType(),
+  city_id: NumberType(),
+  organization_id: NumberType(),
+  address: StringType(),
   phone: StringType().addRule(value => phoneValidate(value), 'Введите корректный номер телефона'),
-  university: StringType(),
   sex: StringType().isRequired('Выберите пол'),
-  birthDate: DateType()
-    .isRequired('Выберите дату рождения')
-    .max(new Date(), 'Дата рождения не может быть позже сегодняшнего дня'),
+  birthday: DateType().max(new Date(), 'Дата рождения не может быть позже сегодняшнего дня'),
   password: StringType()
     .isRequired('Введите пароль')
     .minLength(8, 'Минимальная длина пароля 8 символов')
@@ -29,10 +32,14 @@ const model = Schema.Model({
 });
 
 const RegisterPanel = observer(() => {
+  useEffect(() => {
+    infoListStore.getInfoLists();
+  }, []);
+
   const form = useRef(null);
 
   const [formValue, setFormValue] = useState({
-    birthDate: null,
+    birthday: null,
     email: '',
     name: '',
     password: '',
@@ -40,7 +47,10 @@ const RegisterPanel = observer(() => {
     phone: '',
     sex: '',
     surname: '',
-    university: '',
+    organization_id: '',
+    position_id: '',
+    city_id: '',
+    address: '',
   });
 
   const submitForm = () => {
@@ -48,12 +58,11 @@ const RegisterPanel = observer(() => {
       console.error('Form Error');
       return;
     }
-    console.log(formValue);
+    userStore.register(formValue);
   };
 
   return (
     <Panel header={<h3>Регистрация</h3>} bordered>
-      {/* <Form model={model} onSubmit={() => store.register(email, name, password)} fluid>    onChange={e => setEmail(e)} value={email} */}
       <Form ref={form} model={model} onChange={e => setFormValue(e)} formValue={formValue} onSubmit={submitForm}>
         <TextField required name="email" label="Email" type="email" />
         <TextField required name="surname" label="Фамилия" />
@@ -61,19 +70,25 @@ const RegisterPanel = observer(() => {
         <TextField name="patronymic" label="Отчество" />
         <TextField
           name="phone"
-          mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+          // mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
           label="Телефон"
           type="phone"
         />
+        <TextField name="city_id" label="Город" placeholder="Выберите город" accepter={InputPicker} data={infoListStore.cities} />
+        <TextField name="address" label="Адрес" />
         <TextField
-          name="university"
-          label="Универститет"
-          placeholder="Выберите университет"
+          name="organization_id"
+          label="Организация"
+          placeholder="Выберите организацию"
           accepter={InputPicker}
-          data={[
-            { label: 'Политех', value: 'altgtu' },
-            { label: 'Агу', value: 'agu' },
-          ]}
+          data={infoListStore.organizations}
+        />
+        <TextField
+          name="position_id"
+          label="Должность"
+          placeholder="Выберите должность"
+          accepter={InputPicker}
+          data={infoListStore.positions}
         />
         <TextField
           required
@@ -83,11 +98,11 @@ const RegisterPanel = observer(() => {
           cleanable={false}
           accepter={InputPicker}
           data={[
-            { label: 'Мужской', value: 'man' },
-            { label: 'Женский', value: 'woman' },
+            { label: 'Мужской', value: 'm' },
+            { label: 'Женский', value: 'w' },
           ]}
         />
-        <TextField required name="birthDate" label="Дата рождения" accepter={DatePicker} />
+        <TextField name="birthday" label="Дата рождения" placement="topStart" accepter={DatePicker} />
         <TextField required name="password" label="Пароль" type="password" />
         <Button appearance="primary" type="submit">
           Зарегистрироваться
