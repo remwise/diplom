@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import { toJS } from 'mobx';
-import { BrowserRouter as Router, Route, Link, Switch, Redirect } from 'react-router-dom';
-import { Navbar, Nav, Dropdown, Header, Container, Content, Footer, Loader } from 'rsuite';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { Navbar, Nav, Dropdown, Header, Container, Content, Loader, Icon, FlexboxGrid, Col } from 'rsuite';
+import { getCookie } from './utils/cookies';
+
+import AppFooter from './components/app-footer';
 
 import 'rsuite/dist/styles/rsuite-default.css';
 import './app.css';
@@ -18,12 +20,12 @@ const App = observer(() => {
     store.getUser();
   }, []);
 
-  if (store.loading) return <Loader center size="lg" />;
+  if (store.loading || (!store.user && getCookie('token'))) return <Loader center size="lg" />;
 
   const routes = useRoutes(store.user);
 
   const admin =
-    store.isAuthenticated && store.user['role_id'] === 2 ? (
+    store.isAuthenticated && Number(store.user['role_id']) === 2 ? (
       <Link to="/admin">
         <Dropdown.Item componentClass="span" className="dropdown">
           Админ панель
@@ -33,14 +35,14 @@ const App = observer(() => {
 
   const loginNav = store.isAuthenticated ? (
     <Nav pullRight>
-      <Dropdown title="Андрей" trigger="click" placement="bottomEnd">
+      <Dropdown title={store.user.name} trigger="click" placement="bottomEnd" icon={<Icon size="lg" icon="user" />}>
         <Link to="/user">
           <Dropdown.Item componentClass="span" className="dropdown">
             Личный кабинет
           </Dropdown.Item>
         </Link>
         {admin}
-        <Link to="/conferences/create">
+        <Link to="/conference/create/">
           <Dropdown.Item componentClass="span" className="dropdown">
             Создать конференцию
           </Dropdown.Item>
@@ -68,31 +70,37 @@ const App = observer(() => {
 
   return (
     <Router>
-      <div className="navbar-page">
-        <Container>
-          <Header>
-            <Navbar appearance="subtle">
-              <Navbar.Header>
-                <Link to="/" className="navbar-brand logo">
-                  НАУЧНЫЙ САЙТ
-                </Link>
-              </Navbar.Header>
-              <Navbar.Body>
-                <Nav>
-                  <Link to="/conferences/">
-                    <Nav.Item componentClass="span">Научный календарь</Nav.Item>
+      <Container>
+        <Header>
+          <Navbar appearance="inverse">
+            <FlexboxGrid justify="center">
+              <FlexboxGrid.Item componentClass={Col} lg={20} md={20} sm={24} xs={12} colspan={20}>
+                <Navbar.Header>
+                  <Link to="/" className="navbar-brand">
+                    Ползунов
                   </Link>
-                </Nav>
-                {loginNav}
-              </Navbar.Body>
-            </Navbar>
-          </Header>
-          <Content>{routes}</Content>
-          <Footer>
-            <Link to="/feedback">Обратная связь</Link>
-          </Footer>
-        </Container>
-      </div>
+                </Navbar.Header>
+                <Navbar.Body>
+                  <Nav>
+                    <Link to="/conferences/">
+                      <Nav.Item componentClass="span" icon={<Icon size="lg" icon="mortar-board" />}>
+                        Конференции
+                      </Nav.Item>
+                    </Link>
+                  </Nav>
+                  {loginNav}
+                </Navbar.Body>
+              </FlexboxGrid.Item>
+            </FlexboxGrid>
+          </Navbar>
+        </Header>
+        <Content className="app_component">
+          <FlexboxGrid justify="center">
+            <FlexboxGrid.Item colspan={20}>{routes}</FlexboxGrid.Item>
+          </FlexboxGrid>
+        </Content>
+        <AppFooter />
+      </Container>
     </Router>
   );
 });

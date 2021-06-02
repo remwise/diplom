@@ -1,4 +1,48 @@
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+
 .navbar-brand {
-  padding: 18px 20px;
+  font-size: 30px;
+  padding: 7px 35px 7px 0px;
   display: inline-block;
+  font-family: 'Oranienbaum', serif;
+}
+
+a:hover {
+  color: #003a63;
+}
+
+/* .navbar-body-text {
+  font-size: 16px;
+} */
+
+.rs-navbar.rs-navbar-inverse {
+  background-color: #01497c;
+}
+
+.rs-navbar.rs-navbar-inverse .rs-navbar-nav .rs-nav-item > .rs-nav-item-content:hover,
+.rs-navbar.rs-navbar-inverse .rs-navbar-nav .rs-nav-item > .rs-nav-item-content:focus,
+.rs-navbar.rs-navbar-inverse .rs-navbar-nav .rs-dropdown .rs-dropdown-toggle:hover,
+.rs-navbar.rs-navbar-inverse .rs-navbar-nav .rs-dropdown .rs-dropdown-toggle:focus {
+  background-color: #003a63;
+}
+
+/* .footer {
+  margin-top: 20px;
+} */
+
+/* .app_component {
+  margin: 0 10px;
+} */
+
+/* ПРОБЛЕМНАЯ ЧАСТЬ*/
+.rs-btn-default {
+  color: #fff;
+  background-color: #01497c;
+}
+
+.rs-btn-default:hover {
+  color: #fff;
+  background-color: #003a63;
 }

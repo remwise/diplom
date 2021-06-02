@@ -1,0 +1,9 @@
+.create-conferences-item {
+  height: 180px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.create-conferences-item:hover {
+  opacity: 0.6;
+}

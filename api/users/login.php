@@ -2,6 +2,7 @@
 include_once '../config/core.php';
 include_once '../config/database.php';
 include_once '../objects/users.php';
+include_once '../objects/persons.php';
 include_once '../libs/response-code.php';
 include_once '../libs/password.php';
 include_once '../libs/php-jwt-master/src/BeforeValidException.php';
@@ -21,6 +22,7 @@ $database = new Database();
 $db = $database->getConnection();
 
 $user = new Users($db);
+$person = new Persons($db);
 
 $data = json_decode(file_get_contents("php://input"));
 
@@ -28,8 +30,14 @@ $data = json_decode(file_get_contents("php://input"));
 $user->email = $data->email;
 $email_exists = $user->emailExists();
 
-
 if ($email_exists && password_verify($data->password, $user->password)) {
+
+  $person->person_id = $user->person_id;
+  $stmt = $person->read();
+  $row = $stmt->fetch(PDO::FETCH_ASSOC);
+  extract($row);
+
+
   $token = array(
     "iss" => $iss,
     "aud" => $aud,
@@ -38,6 +46,10 @@ if ($email_exists && password_verify($data->password, $user->password)) {
     "data" => array(
       "user_id" => $user->user_id,
       "email" => $user->email,
+      "name" => $name,
+      "surname" => $surname,
+      "patronymic" => $patronymic,
+      "position_id" => $position_id,
       "phone" => $user->phone,
       "birthday" => $user->birthday,
       "sex" => $user->sex,

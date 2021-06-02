@@ -1,9 +1,19 @@
 import React from 'react';
+import { Container, Content, FlexboxGrid } from 'rsuite';
+import FeedbackPanel from '../../components/feedback-panel';
 
 const FeedbackPage = () => {
   return (
-    <div>
-      <h1>FEEDBACK</h1>
+    <div className="feedback-page">
+      <Container>
+        <Content>
+          <FlexboxGrid justify="center">
+            <FlexboxGrid.Item colspan={12}>
+              <FeedbackPanel />
+            </FlexboxGrid.Item>
+          </FlexboxGrid>
+        </Content>
+      </Container>
     </div>
   );
 };

@@ -4,7 +4,8 @@ class Database
 
     // укажите свои учетные данные базы данных 
     private $host = "localhost";
-    private $db_name = "conference_v2";
+    private $db_name = "conference_v3";
+    // private $db_name = "mca_db";
     private $username = "root";
     private $password = "";
     public $conn;

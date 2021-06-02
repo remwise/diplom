@@ -34,5 +34,5 @@ if ($num > 0) {
   echo json_encode($cities_arr);
 } else {
   http_response_code(404);
-  echo json_encode(array("message" => "В списке нету городов."), JSON_UNESCAPED_UNICODE);
+  echo json_encode(array("message" => "В списке нету городов."));
 }

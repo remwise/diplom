@@ -128,23 +128,30 @@ class Users
     return false;
   }
 
-  // function read()
-  // {
-  //   $query = "SELECT user_id, email, phone, birthday, sex, address, city_id, organization_id, person_id, role_id, password
-  //         FROM " . $this->table_name . "
-  //         WHERE email = :email
-  //         LIMIT 0,1";
+  function read()
+  {
+    // $query = "SELECT u.user_id, u.email, u.phone, u.birthday, u.sex, u.address, u.city_id, u.organization_id, u.role_id, p.surname, p.name, p.patronymic, pos.name as position_name
+    $query = "SELECT u.user_id, u.email, u.phone, u.birthday, u.sex, u.address, u.city_id, u.organization_id, u.role_id, p.surname, p.name as person_name, p.patronymic, pos.name as position_name
+          FROM " . $this->table_name . " u
+          LEFT JOIN
+          persons p
+              ON p.person_id = u.person_id
+          LEFT JOIN
+          positions pos
+              ON pos.position_id = p.position_id
+          WHERE user_id = :user_id
+          LIMIT 0,1";
 
-  //   $stmt = $this->conn->prepare($query);
+    $stmt = $this->conn->prepare($query);
 
-  //   $this->email = htmlspecialchars(strip_tags($this->email));
+    $this->user_id = htmlspecialchars(strip_tags($this->user_id));
 
-  //   $stmt->bindParam(":email", $this->email);
+    $stmt->bindParam(":user_id", $this->user_id);
 
-  //   $stmt->execute();
+    $stmt->execute();
 
-  //   return $stmt;
-  // }
+    return $stmt;
+  }
 
   // обновить запись пользователя 
   public function update()

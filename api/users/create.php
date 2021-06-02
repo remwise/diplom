@@ -37,8 +37,6 @@ if ($email_exists) {
     $user->phone = $data->phone;
     $user->password = $data->password;
     $user->birthday = $data->birthday;
-    // $user->birthday = date('Y-m-d', strtotime($data->birthday));
-    // echo $user->birthday . 'data';
     $user->sex = $data->sex;
     $user->address = $data->address;
     $user->city_id = $data->city_id;
@@ -46,7 +44,7 @@ if ($email_exists) {
     $user->person_id = $person->person_id;
 
     if (
-      !empty($user->birthday) && !empty($user->email) &&
+      !empty($user->email) &&
       !empty($user->password) && !empty($user->sex) &&
       !empty($user->person_id) && $user->create()
     ) {

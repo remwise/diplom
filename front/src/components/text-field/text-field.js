@@ -1,34 +1,43 @@
-import { FormGroup, FormControl, ControlLabel, HelpBlock, DatePicker } from 'rsuite';
+import { FormGroup, FormControl, ControlLabel, HelpBlock, DatePicker, DateRangePicker } from 'rsuite';
 
-const TextField = ({ label, required, ...props }) => {
+const TextField = ({ label, required, style, ...props }) => {
   const block = required ? <HelpBlock tooltip>Обязательно к заполнению</HelpBlock> : null;
-  const dataInputParams =
-    props.accepter === DatePicker
-      ? {
-          ranges: [],
-          isoWeek: true,
-          placeholder: 'ДД.ММ.ГГГГ',
-          locale: {
-            sunday: 'Вс',
-            monday: 'Пн',
-            tuesday: 'Вт',
-            wednesday: 'Ср',
-            thursday: 'Чт',
-            friday: 'Пт',
-            saturday: 'Сб',
-            ok: 'ОК',
-            today: 'Сегодня',
-            yesterday: 'Вчера',
-            hours: 'Часы',
-            minutes: 'Минуты',
-            seconds: 'Секунды',
-          },
-          oneTap: true,
-          format: 'DD.MM.YYYY',
-        }
-      : null;
+  const acc = props.accepter;
+  let dataInputParams = null;
+
+  if (acc === DatePicker || acc === DateRangePicker) {
+    dataInputParams = {
+      ranges: [],
+      isoWeek: true,
+      locale: {
+        sunday: 'Вс',
+        monday: 'Пн',
+        tuesday: 'Вт',
+        wednesday: 'Ср',
+        thursday: 'Чт',
+        friday: 'Пт',
+        saturday: 'Сб',
+        ok: 'ОК',
+        today: 'Сегодня',
+        yesterday: 'Вчера',
+        hours: 'Часы',
+        minutes: 'Минуты',
+        seconds: 'Секунды',
+      },
+    };
+
+    dataInputParams.format = props.format ? props.format : 'DD.MM.YYYY';
+
+    if (acc === DatePicker) {
+      dataInputParams.placeholder = 'Выберите дату';
+      dataInputParams.oneTap = true;
+    } else {
+      dataInputParams.placeholder = 'Выберите диапозон';
+      dataInputParams.showOneCalendar = true;
+    }
+  }
   return (
-    <FormGroup>
+    <FormGroup style={style}>
       <ControlLabel>{label} </ControlLabel>
       <FormControl {...props} {...dataInputParams} />
       {block}

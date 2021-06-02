@@ -1,0 +1,16 @@
+.footer {
+  height: 85px;
+  background-color: #e5e5e5;
+}
+
+.footer-content {
+  height: 100%;
+}
+
+.footer-text {
+  color: #171717;
+}
+
+.feedback-button {
+  width: 100%;
+}

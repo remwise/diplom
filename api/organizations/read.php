@@ -34,5 +34,5 @@ if ($num > 0) {
   echo json_encode($organizations_arr);
 } else {
   http_response_code(404);
-  echo json_encode(array("message" => "В списке нету организаций."), JSON_UNESCAPED_UNICODE);
+  echo json_encode(array("message" => "В списке нету организаций."));
 }

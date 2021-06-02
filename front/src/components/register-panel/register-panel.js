@@ -63,7 +63,14 @@ const RegisterPanel = observer(() => {
 
   return (
     <Panel header={<h3>Регистрация</h3>} bordered>
-      <Form ref={form} model={model} onChange={e => setFormValue(e)} formValue={formValue} onSubmit={submitForm}>
+      <Form
+        ref={form}
+        model={model}
+        onChange={e => setFormValue(e)}
+        formValue={formValue}
+        onSubmit={submitForm}
+        // style={{ margin: '0 auto', width: '350px' }}
+      >
         <TextField required name="email" label="Email" type="email" />
         <TextField required name="surname" label="Фамилия" />
         <TextField required name="name" label="Имя" />

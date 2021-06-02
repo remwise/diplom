@@ -12,14 +12,15 @@ import ConferencesDetails from '../../components/conferences-details';
 
 const useRoutes = user => {
   if (user) {
-    if (user['role_id'] === 2) {
+    if (Number(user['role_id']) === 2) {
       return (
         <Switch>
           <Route path="/" component={HomePage} exact />
           <Route path="/admin" component={AdminPage} exact />
           <Route path="/user" component={UserPage} exact />
           <Route path="/conferences/" component={ConferencesPage} exact />
-          <Route path="/conferences/create" component={CreateConferencePage} exact />
+          <Route path="/conference/create/" component={CreateConferencePage} exact />
+          <Route path="/conference/create/:id" component={CreateConferencePage} exact />
           <Route path="/conferences/:id" component={ConferencesDetails} exact />
           <Route path="/feedback" component={FeedbackPage} exact />
           <Redirect to="/" />
@@ -31,7 +32,8 @@ const useRoutes = user => {
           <Route path="/" component={HomePage} exact />
           <Route path="/user" component={UserPage} exact />
           <Route path="/conferences/" component={ConferencesPage} exact />
-          <Route path="/conferences/create" component={CreateConferencePage} exact />
+          <Route path="/conference/create/" component={CreateConferencePage} exact />
+          <Route path="/conference/create/:id" component={CreateConferencePage} exact />
           <Route path="/conferences/:id" component={ConferencesDetails} exact />
           <Route path="/feedback" component={FeedbackPage} exact />
           <Redirect to="/" />
@@ -46,8 +48,8 @@ const useRoutes = user => {
         <Route path="/conferences/:id" component={ConferencesDetails} exact />
         <Route path="/register" component={RegisterPage} exact />
         <Route path="/login" component={LoginPage} exact />
-        <Route path="/feedback" component={FeedbackPage} exact />
-        <Redirect to="/" />
+        {/* <Route path="/feedback" component={FeedbackPage} exact /> */}
+        <Redirect to="/login" />
       </Switch>
     );
   }

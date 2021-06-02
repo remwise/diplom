@@ -1,0 +1,3 @@
+.rs-nav-item.rs-nav-item-disabled > .rs-nav-item-content {
+  cursor: default;
+}

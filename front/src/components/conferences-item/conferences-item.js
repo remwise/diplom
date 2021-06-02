@@ -1,58 +1,48 @@
 import React from 'react';
-import { FlexboxGrid, Panel } from 'rsuite';
+import { Col, FlexboxGrid, Panel, Row } from 'rsuite';
 
 import './conferences-item.css';
 
 const ConferencesItem = props => {
-  const { title, imgURL, registerDate, eventDate, universityName } = props;
+  const { conference_name, logo_filename, event_name, registration_end, start_date, end_date, organization_name } = props;
 
   return (
-    <Panel {...props} header={title} className="conferences-item">
-      <h4>назывние</h4>
-      <FlexboxGrid>
+    // <Panel {...props} header={conference_name} className="conferences-item">
+    <Panel {...props} className="conferences-item">
+      <FlexboxGrid justify="space-between">
         <FlexboxGrid.Item colspan={4}>
-          <img className="conference-logo" src={imgURL} alt="" />
+          <img className="conference-logo" src={`/data/images/${logo_filename}`} alt="" />
         </FlexboxGrid.Item>
-        <FlexboxGrid.Item colspan={8}>
-          <p>Дата проведения: {eventDate}</p>
-          <p>Регистрация доступна до: {registerDate}</p>
-          <p>Название вуза: {universityName}</p>
+        <FlexboxGrid.Item colspan={19}>
+          <h5>{event_name}</h5>
+          <Row className="show-grid">
+            <Col xs={6}>
+              <p>Дата проведения:</p>
+              <p>
+                {start_date} - {end_date}
+              </p>
+            </Col>
+            <Col xs={6}>
+              <p>Дата окончания регистрации:</p>
+              <p>{registration_end}</p>
+            </Col>
+          </Row>
+          <div>
+            <p>Место проведения:</p>
+            <p>{organization_name}</p>
+          </div>
         </FlexboxGrid.Item>
       </FlexboxGrid>
     </Panel>
-    // <Panel header={title}>
-    //   <FlexboxGrid>
-    //     <FlexboxGrid.Item colspan={3}>
-    //       <img className="conference-logo" src={imgURL} alt="" />
-    //     </FlexboxGrid.Item>
-    //     <FlexboxGrid.Item colspan={9}>
-    //       <span>Дата проведения: {eventDate}</span>
-    //       <span>Дата регистрации: {registerDate}</span>
-    //       <span>Название вуза: {universityName}</span>
-    //     </FlexboxGrid.Item>
-    //   </FlexboxGrid>
-    // </Panel>
-    // <Panel shaded bordered bodyFill className="conferences-item">
-    //   <img className="conference-logo" src={imgURL} />
-    //   <Panel header={title}>
-    //     <p>Дата проведения: {eventDate}</p>
-    //     <p>Дата регистрации: {registerDate}</p>
-    //     <p>Название вуза: {universityName}</p>
-    //   </Panel>
-    // </Panel>
-    // <Panel bordered header={title}>
-    //   <FlexboxGrid>
-    //     <FlexboxGrid.Item colspan={3}>
-    //       <img className="conference-logo" src={imgURL} alt="" />
-    //     </FlexboxGrid.Item>
-    //     <FlexboxGrid.Item colspan={9}>
-    //       <span>Дата проведения: {eventDate}</span>
-    //       <span>Дата регистрации: {registerDate}</span>
-    //       <span>Название вуза: {universityName}</span>
-    //     </FlexboxGrid.Item>
-    //   </FlexboxGrid>
-    // </Panel>
   );
 };
 
 export default ConferencesItem;
+
+{
+  /* <p>
+            Дата проведения: {start_date} - {end_date}
+          </p>
+          <p>Регистрация доступна до: {registration_end}</p>
+          <p>Название вуза: {organization_name}</p> */
+}

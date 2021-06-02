@@ -74,4 +74,23 @@ class Persons
 
     return false;
   }
+
+  function read()
+  {
+    $query = "SELECT name, surname, patronymic, position_id
+                FROM " . $this->table_name . "
+                WHERE
+                  person_id = :person_id
+                  LIMIT 0,1";
+
+    $stmt = $this->conn->prepare($query);
+
+    $this->person_id = htmlspecialchars(strip_tags($this->person_id));
+
+    $stmt->bindParam(':person_id', $this->person_id, PDO::PARAM_INT);
+
+    $stmt->execute();
+
+    return $stmt;
+  }
 }
