@@ -1,0 +1,3 @@
+[submodule "diplom-front"]
+	path = diplom-front
+	url = https://github.com/remwise/diplom-front
