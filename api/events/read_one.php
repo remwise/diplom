@@ -51,6 +51,7 @@ if ($event->name != null) {
 
     $file_item = array(
       "file_id" => $file_id,
+      "filename" => $filename,
       "name" => $name
     );
 

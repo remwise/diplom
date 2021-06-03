@@ -6,6 +6,7 @@ class Files
 
   public $file_id;
   public $name;
+  public $filename;
   public $event_id;
 
   public function __construct($db)
@@ -18,14 +19,17 @@ class Files
     $query = "INSERT INTO " . $this->table_name . "
                 SET
                     name = :name,
+                    filename = :filename,
                     event_id = :event_id";
 
     $stmt = $this->conn->prepare($query);
 
     $this->name = htmlspecialchars(strip_tags($this->name));
+    $this->filename = htmlspecialchars(strip_tags($this->filename));
     $this->event_id = htmlspecialchars(strip_tags($this->event_id));
 
     $stmt->bindParam(':name', $this->name);
+    $stmt->bindParam(':filename', $this->filename);
     $stmt->bindParam(':event_id', $this->event_id);
 
 
@@ -59,7 +63,7 @@ class Files
   function read_one()
   {
     $query = "SELECT
-              file_id, name
+              file_id, name, filename
           FROM
               " . $this->table_name . "
               WHERE event_id = :event_id";

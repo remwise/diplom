@@ -72,17 +72,21 @@ if ($num > 0) {
       }
 
       $users->user_id = $user_id;
-      $tmp2 = $users->read();
-      $user_arr = array();
-      $row3 = $tmp2->fetch(PDO::FETCH_ASSOC);
-      extract($row3);
+      if ($users->user_id != null) {
+        $tmp2 = $users->read();
+        $user_arr = array();
+        $row3 = $tmp2->fetch(PDO::FETCH_ASSOC);
+        extract($row3);
 
-      $user_arr = array(
-        "surname" => $surname,
-        "name" => $person_name,
-        "patronymic" => $patronymic,
-        "position_name" => $position_name
-      );
+        $user_arr = array(
+          "surname" => $surname,
+          "name" => $person_name,
+          "patronymic" => $patronymic,
+          "position_name" => $position_name
+        );
+      } else {
+        $user_arr = null;
+      }
 
       $articles_item = array(
         "article_id" => $article_id,
