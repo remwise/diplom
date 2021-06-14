@@ -88,7 +88,7 @@ class Events
   {
     $query = "SELECT
               c.conference_id, e.event_id, e.name as event_name, c.name as conference_name, e.logo_filename, e.registration_end,
-              e.start_date, e.end_date, e.about, e.contacts, e.price, o.name as organization_name
+              e.start_date, e.end_date, e.about, e.contacts, e.price, o.name as organization_name, o.short_name as organization_sort_name
           FROM
               " . $this->table_name . " e
                 LEFT JOIN

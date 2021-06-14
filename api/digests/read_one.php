@@ -92,9 +92,12 @@ if ($num > 0) {
         "article_id" => $article_id,
         "name" => $article_name,
         "description" => $description,
+        "article_num" => $article_num,
+        "filename" => $filename,
+        "pages_count" => $pages_count,
         "user" => $user_arr,
         "status_id" => $status_id,
-        "payment_id" => $payment_id,
+        "payment_amount" => $payment_amount,
         "collaborators" => $articles_collaborators_arr,
         "directors" => $articles_directors_arr
 

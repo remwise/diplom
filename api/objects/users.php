@@ -30,7 +30,6 @@ class Users
                     password = :password,
                     birthday = :birthday,
                     sex = :sex,
-                    address = :address,
                     city_id = :city_id,
                     organization_id = :organization_id,
                     person_id = :person_id";
@@ -43,7 +42,6 @@ class Users
     $this->birthday = htmlspecialchars(strip_tags($this->birthday));
     $this->birthday = date('Y-m-d', strtotime($this->birthday));
     $this->sex = htmlspecialchars(strip_tags($this->sex));
-    $this->address = htmlspecialchars(strip_tags($this->address));
     $this->city_id = htmlspecialchars(strip_tags($this->city_id));
     $this->organization_id = htmlspecialchars(strip_tags($this->organization_id));
     $this->person_id = htmlspecialchars(strip_tags($this->person_id));
@@ -60,12 +58,6 @@ class Users
 
     $stmt->bindParam(':birthday', $this->birthday);
     $stmt->bindParam(':sex', $this->sex);
-
-    if ($this->address != "") {
-      $stmt->bindParam(':address', $this->address, PDO::PARAM_INT);
-    } else {
-      $stmt->bindParam(':address', $myvar, PDO::PARAM_NULL);
-    }
 
     if ($this->city_id != "") {
       $stmt->bindParam(':city_id', $this->city_id, PDO::PARAM_INT);

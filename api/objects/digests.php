@@ -58,10 +58,11 @@ class Digests
   function read()
   {
     $query = "SELECT
-              digest_id, publication_year, conference_id
+              digest_id, publication_year, filename, conference_id
           FROM
               " . $this->table_name . "
-          WHERE conference_id = :conference_id";
+          WHERE conference_id = :conference_id
+            ORDER BY publication_year DESC";
 
     $stmt = $this->conn->prepare($query);
 

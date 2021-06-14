@@ -38,7 +38,6 @@ if ($email_exists) {
     $user->password = $data->password;
     $user->birthday = $data->birthday;
     $user->sex = $data->sex;
-    $user->address = $data->address;
     $user->city_id = $data->city_id;
     $user->organization_id = $data->organization_id;
     $user->person_id = $person->person_id;

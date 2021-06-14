@@ -34,6 +34,7 @@ if ($num > 0) {
       "contacts" => $contacts,
       "price" => $price,
       "organization_name" => $organization_name,
+      "organization_short_name" => $organization_sort_name,
     );
 
     array_push($events_arr["records"], $events_item);

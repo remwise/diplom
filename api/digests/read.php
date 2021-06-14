@@ -28,6 +28,7 @@ if ($num > 0) {
 
     $digests_item = array(
       "digest_id" => $digest_id,
+      "filename" => $filename,
       "publication_year" => $publication_year,
       "conference_id" => $conference_id,
     );

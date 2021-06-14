@@ -81,7 +81,7 @@ class Articles
   function read_one()
   {
     $query = "SELECT
-              article_id, name as article_name, description, user_id, status_id, digest_section_id, payment_id
+              article_id, name as article_name, description, filename, pages_count, article_num, payment_amount, user_id, status_id, digest_section_id
           FROM
               " . $this->table_name . "
               WHERE
